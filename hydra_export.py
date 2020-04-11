@@ -6,8 +6,8 @@ REGISTERED_TARGETS = "/targets/registered_summary"
 ALL_TARGETS = "/targets/"
 HYDRA_TARGET = "/hydra_search/search"
 
-auth_header = "<insert-your-auth-header>"
-target_codename = "<insert-target-codename>"
+auth_header = raw_input("Please enter your Synack Auth Header (Command from web console: sessionStorage.getItem('shared-session-com.synack.accessToken')): ")
+target_codename = raw_input("Please enter your target codename: ")
 headers = {"Authorization": "Bearer "+auth_header}
 
 iterator = 1
