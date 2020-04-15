@@ -1,3 +1,5 @@
+import argparse
+import sys
 import json
 import requests
 
@@ -6,8 +8,19 @@ REGISTERED_TARGETS = "/targets/registered_summary"
 ALL_TARGETS = "/targets/"
 HYDRA_TARGET = "/hydra_search/search"
 
-auth_header = raw_input("Please enter your Synack Auth Header (Command from web console: sessionStorage.getItem('shared-session-com.synack.accessToken')): ")
-target_codename = raw_input("Please enter your target codename: ")
+## Documentation
+
+parser = argparse.ArgumentParser(description="Synack Hydra host scope download")
+parser.add_argument('--key', type=str, metavar='', required=True, help="Please enter your Synack Auth Header. Use this command in web browser console : sessionStorage.getItem('shared-session-com.synack.accessToken')")
+parser.add_argument('--codename', type=str, metavar='', required=True, help="Please enter your target codename. It should be in the URL https://platform.synack.com/targets/<Codename>")
+if len(sys.argv)==1:
+    parser.print_help()
+    sys.exit(1)
+args= parser.parse_args()
+
+
+auth_header = args.key
+target_codename = args.codename
 headers = {"Authorization": "Bearer "+auth_header}
 
 iterator = 1
@@ -15,16 +28,18 @@ next_page = True
 results = [[],[]]
 results_final = []
 
+## Get the json blob
+
 while next_page:
     try:
         url = SYNACK_API_URL + HYDRA_TARGET + "?page="+str(iterator)+"&listing_uids="+target_codename+"&q=%2Bport_is_open%3Atrue"
         target_response = requests.get(url, headers=headers).json()
-        for i in range (len(target_response)): 
-            ports = str(target_response[i]["ports"]).split("}}}}")
-            for j in range (len(ports)-1):
-                results[0].append((target_response[i]["ip"]))
-                results[1].append(str(ports[j]).split("'")[1])
-        print("Page "+str(iterator)+" done.")
+        print("[+] Page "+str(iterator))
+        for blobs in target_response:
+            ipAddress= str(blobs['ip'])
+            portNum= str(blobs['ports']).split("'")[1]
+            print(ipAddress+":"+str(blobs['ports']).split("'")[1])
+            results_final.append(ipAddress+":"+portNum)
         if len(target_response) < 10:
             print("Done loading target.")
             next_page = False
@@ -33,9 +48,14 @@ while next_page:
         print(e)
         next_page = False
 
-for i in range (len(results[0])): 
-    results_final.append (str(results[0][i])+":"+str(results[1][i]))
-results_final.sort()
 
-for i in range (len(results_final)): 
-    print results_final[i]
+## To save the final results
+
+results_final.sort()
+FileName= "hydraHost_"+str(target_codename)+".txt"
+f = open(FileName,"w+")
+
+for entry in range(len(results_final)):
+    f.write(str(results_final[entry])+"\n")
+
+f.close()
