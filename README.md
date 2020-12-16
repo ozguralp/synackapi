@@ -5,6 +5,7 @@ Custom created scripts for a better/faster experience at Synack Bug Bounty Platf
 - Hydra open ports export: `hydra_export.py`
 - Download all in-scope IP's for host targets: `scope_download_normal.py`
 - Download all in-scope IP's for host targets (Threaded mode): `scope_download_threaded.py`
+- Register for all targets at once: `register_all_targets.py`
 
 ***Usages:***
 - Do not forgot to supply authorization headers for your user and target codename you want to process correctly while asked from command line.
