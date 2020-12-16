@@ -9,6 +9,7 @@ headers = {"Authorization": "Bearer "+auth_header}
 iter = 1
 next_page = True
 slugs = []
+passed_assessments = ["Web Application", "Host", "Mobile", "Hardware", "Reverse Engineering", "Source Code"]
 
 print "Getting target slugs."
 while next_page:
@@ -16,7 +17,8 @@ while next_page:
     target_response = requests.get(url, headers=headers, verify=False).json()
     if (len(target_response)!=0):
         for i in range (len(target_response)): 
-            slugs.append(str(target_response[i]["slug"]))
+            if target_response[i]["category"]["name"] in passed_assessments:
+                slugs.append(str(target_response[i]["slug"]))
         iter += 1
         print "Page "+str(iter)+" done."
     else:
