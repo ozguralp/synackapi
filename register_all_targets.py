@@ -28,7 +28,7 @@ print "Total count of not-registered targets are: "+str(len(slugs))
 print "Starting process of registering all targets."
 for i in range (len(slugs)): 
     url = "https://platform.synack.com/api/targets/"+slugs[i]+"/signup"
-    target_response = requests.post(url, headers=headers, verify=False, json={"ResearcherListing":{"terms":1}}, proxies=proxies)
+    target_response = requests.post(url, headers=headers, verify=False, json={"ResearcherListing":{"terms":1}})
     if target_response.status_code == 200:
         print "Registered target with slug "+slugs[i]+" successfully!"
     else:
