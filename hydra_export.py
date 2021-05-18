@@ -1,6 +1,7 @@
 import json
 import requests
 
+requests.adapters.DEFAULT_RETRIES = 10
 SYNACK_API_URL = "https://platform.synack.com/api"
 REGISTERED_TARGETS = "/targets/registered_summary"
 ALL_TARGETS = "/targets/"
