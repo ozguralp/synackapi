@@ -2,6 +2,7 @@ import json
 import requests
 import warnings
 
+requests.adapters.DEFAULT_RETRIES = 10
 warnings.filterwarnings("ignore")
 auth_header = raw_input("Please enter your Synack Auth Header (Command from web console: sessionStorage.getItem('shared-session-com.synack.accessToken')): ")
 headers = {"Authorization": "Bearer "+auth_header}
