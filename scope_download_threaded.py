@@ -4,6 +4,7 @@ import json
 from threading import Thread
 from Queue import Queue
 
+requests.adapters.DEFAULT_RETRIES = 10
 warnings.filterwarnings("ignore")
 token = raw_input("Please enter your Synack Auth Header (Command from web console: sessionStorage.getItem('shared-session-com.synack.accessToken')): ")
 target_code = raw_input("Please enter your target codename: ")
