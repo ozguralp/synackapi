@@ -20,9 +20,13 @@ print("Page "+str(x)+" done.")
 while len(temp) > 1:
     x = x + 3
     response = requests.get('https://platform.synack.com/api/targets/'+target_code+'/cidrs',params={'page': x},headers={'Authorization': 'Bearer '+token},verify=False)
-    temp = json.dumps(response.json()['cidrs']).replace("[","").replace("]","").replace("\"","").replace(", ","\n").split("\n")
-    blocks.extend(temp)
-    print("Page "+str(x)+" done.")
+    if (response.json().get("cidrs")==None):
+        break
+    else:
+        temp = json.dumps(response.json()['cidrs']).replace("[","").replace("]","").replace("\"","").replace(", ","\n").split("\n")
+        blocks.extend(temp)
+        print temp
+        print("Page "+str(x)+" done.")
 blocks = list(set(blocks))
 if os.path.isfile("blocks.txt"):
 	os.remove("blocks.txt")
