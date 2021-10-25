@@ -2,7 +2,7 @@
 Custom created scripts for a better/faster experience at Synack Bug Bounty Platform. 
 
 ***Scripts:***
-- Hydra open ports export: `hydra_export.py`
+- Hydra open ports export: `hydra_export.py` (Use `hydra_export_py3.py` if you are using python3)
 - Download all in-scope IP's for host targets: `scope_download.py`
 - Register for all targets at once: `register_all_targets.py`
 
