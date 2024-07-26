@@ -1,6 +1,7 @@
 # Synack Platform API Scripts
 Custom created scripts for a better/faster experience at Synack Bug Bounty Platform. 
-Note from 2024: Most of the functionality is outdated and probably not working at the moment, but repository is still keeped for legacy. 
+
+**Note from 2024:** Most of the functionality is outdated and probably not working at the moment, but repository is still keeped for legacy. 
 
 ***Scripts:***
 - Hydra open ports export: `hydra_export.py` (Use `hydra_export_py3.py` if you are using python3)
